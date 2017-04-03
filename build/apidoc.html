@@ -1,0 +1,271 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+        href="http://rafeca.com/prettyjson"
+
+    >prettyjson (v1.2.1)</a>
+</h1>
+<h4>Package for formatting JSON data in a coloured YAML-style, perfect for CLI output</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.prettyjson">module prettyjson</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.prettyjson.render">
+            function <span class="apidocSignatureSpan">prettyjson.</span>render
+            <span class="apidocSignatureSpan">(data, options, indentation)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.prettyjson.renderString">
+            function <span class="apidocSignatureSpan">prettyjson.</span>renderString
+            <span class="apidocSignatureSpan">(data, options, indentation)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">prettyjson.</span>utils</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">prettyjson.</span>version</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.prettyjson.utils">module prettyjson.utils</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.prettyjson.utils.getMaxIndexLength">
+            function <span class="apidocSignatureSpan">prettyjson.utils.</span>getMaxIndexLength
+            <span class="apidocSignatureSpan">(input)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.prettyjson.utils.indent">
+            function <span class="apidocSignatureSpan">prettyjson.utils.</span>indent
+            <span class="apidocSignatureSpan">(numSpaces)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.prettyjson" id="apidoc.module.prettyjson">module prettyjson</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.prettyjson.render" id="apidoc.element.prettyjson.render">
+        function <span class="apidocSignatureSpan">prettyjson.</span>render
+        <span class="apidocSignatureSpan">(data, options, indentation)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function render(data, options, indentation) {
+  // Default values
+  indentation = indentation || 0;
+  options = options || {};
+  options.emptyArrayMsg = options.emptyArrayMsg || &#x27;(empty array)&#x27;;
+  options.keysColor = options.keysColor || &#x27;green&#x27;;
+  options.dashColor = options.dashColor || &#x27;green&#x27;;
+  options.numberColor = options.numberColor || &#x27;blue&#x27;;
+  options.defaultIndentation = options.defaultIndentation || 2;
+  options.noColor = !!options.noColor;
+  options.noAlign = !!options.noAlign;
+
+  options.stringColor = options.stringColor || null;
+
+  return renderToArray(data, options, indentation).join(&#x27;\n&#x27;);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  projects: [&#x27;prettyprint&#x27;, &#x27;connfu&#x27;]
+};
+
+var options = {
+  noColor: true
+};
+
+console.log(prettyjson.<span class="apidocCodeKeywordSpan">render</span>(data, options));
+```
+
+And will output:
+
+![Example 4](https://raw.github.com/rafeca/prettyjson/master/images/example1.png)
+
+You can also configure the colors of the hash keys and array dashes
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.prettyjson.renderString" id="apidoc.element.prettyjson.renderString">
+        function <span class="apidocSignatureSpan">prettyjson.</span>renderString
+        <span class="apidocSignatureSpan">(data, options, indentation)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function renderString(data, options, indentation) {
+
+  var output = &#x27;&#x27;;
+  var parsedData;
+  // If the input is not a string or if it&#x27;s empty, just return an empty string
+  if (typeof data !== &#x27;string&#x27; || data === &#x27;&#x27;) {
+    return &#x27;&#x27;;
+  }
+
+  // Remove non-JSON characters from the beginning string
+  if (data[0] !== &#x27;{&#x27; &#x26;&#x26; data[0] !== &#x27;[&#x27;) {
+    var beginingOfJson;
+    if (data.indexOf(&#x27;{&#x27;) === -1) {
+      beginingOfJson = data.indexOf(&#x27;[&#x27;);
+    } else if (data.indexOf(&#x27;[&#x27;) === -1) {
+      beginingOfJson = data.indexOf(&#x27;{&#x27;);
+    } else if (data.indexOf(&#x27;{&#x27;) &#x3c; data.indexOf(&#x27;[&#x27;)) {
+      beginingOfJson = data.indexOf(&#x27;{&#x27;);
+    } else {
+      beginingOfJson = data.indexOf(&#x27;[&#x27;);
+    }
+    output += data.substr(0, beginingOfJson) + &#x27;\n&#x27;;
+    data = data.substr(beginingOfJson);
+  }
+
+  try {
+    parsedData = JSON.parse(data);
+  } catch (e) {
+    // Return an error in case of an invalid JSON
+    return colors.red(&#x27;Error:&#x27;) + &#x27; Not valid JSON!&#x27;;
+  }
+
+  // Call the real render() method
+  output += exports.render(parsedData, options, indentation);
+  return output;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.prettyjson.utils" id="apidoc.module.prettyjson.utils">module prettyjson.utils</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.prettyjson.utils.getMaxIndexLength" id="apidoc.element.prettyjson.utils.getMaxIndexLength">
+        function <span class="apidocSignatureSpan">prettyjson.utils.</span>getMaxIndexLength
+        <span class="apidocSignatureSpan">(input)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">getMaxIndexLength = function (input) {
+  var maxWidth = 0;
+
+  Object.getOwnPropertyNames(input).forEach(function(key) {
+    // Skip undefined values.
+    if (input[key] === undefined) {
+      return;
+    }
+
+    maxWidth = Math.max(maxWidth, key.length);
+  });
+  return maxWidth;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.prettyjson.utils.indent" id="apidoc.element.prettyjson.utils.indent">
+        function <span class="apidocSignatureSpan">prettyjson.utils.</span>indent
+        <span class="apidocSignatureSpan">(numSpaces)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function indent(numSpaces) {
+  return new Array(numSpaces+1).join(&#x27; &#x27;);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
