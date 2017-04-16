@@ -81,35 +81,7 @@
 
         <li>
 
-            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">prettyjson.</span>utils</span>
-
-        </li>
-
-        <li>
-
             <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">prettyjson.</span>version</span>
-
-        </li>
-
-    </ol></li>
-
-    <li class="apidocModuleLi"><a href="#apidoc.module.prettyjson.utils">module prettyjson.utils</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.prettyjson.utils.getMaxIndexLength">
-            function <span class="apidocSignatureSpan">prettyjson.utils.</span>getMaxIndexLength
-            <span class="apidocSignatureSpan">(input)</span>
-            </a>
-
-        </li>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.prettyjson.utils.indent">
-            function <span class="apidocSignatureSpan">prettyjson.utils.</span>indent
-            <span class="apidocSignatureSpan">(numSpaces)</span>
-            </a>
 
         </li>
 
@@ -212,53 +184,6 @@ You can also configure the colors of the hash keys and array dashes
     </ul>
 
 
-
-
-
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.prettyjson.utils" id="apidoc.module.prettyjson.utils">module prettyjson.utils</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.prettyjson.utils.getMaxIndexLength" id="apidoc.element.prettyjson.utils.getMaxIndexLength">
-        function <span class="apidocSignatureSpan">prettyjson.utils.</span>getMaxIndexLength
-        <span class="apidocSignatureSpan">(input)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">getMaxIndexLength = function (input) {
-  var maxWidth = 0;
-
-  Object.getOwnPropertyNames(input).forEach(function(key) {
-    // Skip undefined values.
-    if (input[key] === undefined) {
-      return;
-    }
-
-    maxWidth = Math.max(maxWidth, key.length);
-  });
-  return maxWidth;
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
-
-
-    <h2>
-        <a href="#apidoc.element.prettyjson.utils.indent" id="apidoc.element.prettyjson.utils.indent">
-        function <span class="apidocSignatureSpan">prettyjson.utils.</span>indent
-        <span class="apidocSignatureSpan">(numSpaces)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">function indent(numSpaces) {
-  return new Array(numSpaces+1).join(&#x27; &#x27;);
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
 
 
 </div>
