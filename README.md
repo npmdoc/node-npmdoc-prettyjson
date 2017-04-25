@@ -1,7 +1,12 @@
-# api documentation for  [prettyjson (v1.2.1)](http://rafeca.com/prettyjson)  [![npm package](https://img.shields.io/npm/v/npmdoc-prettyjson.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-prettyjson) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-prettyjson.svg)](https://travis-ci.org/npmdoc/node-npmdoc-prettyjson)
+# npmdoc-prettyjson
+
+#### basic api documentation for  [prettyjson (v1.2.1)](http://rafeca.com/prettyjson)  [![npm package](https://img.shields.io/npm/v/npmdoc-prettyjson.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-prettyjson) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-prettyjson.svg)](https://travis-ci.org/npmdoc/node-npmdoc-prettyjson)
+
 #### Package for formatting JSON data in a coloured YAML-style, perfect for CLI output
 
 [![NPM](https://nodei.co/npm/prettyjson.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/prettyjson)
+
+- [https://npmdoc.github.io/node-npmdoc-prettyjson/build/apidoc.html](https://npmdoc.github.io/node-npmdoc-prettyjson/build/apidoc.html)
 
 [![apidoc](https://npmdoc.github.io/node-npmdoc-prettyjson/build/screenCapture.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-prettyjson/build/apidoc.html)
 
@@ -75,105 +80,6 @@
     },
     "version": "1.2.1"
 }
-```
-
-
-
-# <a name="apidoc.tableOfContents"></a>[table of contents](#apidoc.tableOfContents)
-
-#### [module prettyjson](#apidoc.module.prettyjson)
-1.  [function <span class="apidocSignatureSpan">prettyjson.</span>render (data, options, indentation)](#apidoc.element.prettyjson.render)
-1.  [function <span class="apidocSignatureSpan">prettyjson.</span>renderString (data, options, indentation)](#apidoc.element.prettyjson.renderString)
-1.  string <span class="apidocSignatureSpan">prettyjson.</span>version
-
-
-
-# <a name="apidoc.module.prettyjson"></a>[module prettyjson](#apidoc.module.prettyjson)
-
-#### <a name="apidoc.element.prettyjson.render"></a>[function <span class="apidocSignatureSpan">prettyjson.</span>render (data, options, indentation)](#apidoc.element.prettyjson.render)
-- description and source-code
-```javascript
-function render(data, options, indentation) {
-  // Default values
-  indentation = indentation || 0;
-  options = options || {};
-  options.emptyArrayMsg = options.emptyArrayMsg || '(empty array)';
-  options.keysColor = options.keysColor || 'green';
-  options.dashColor = options.dashColor || 'green';
-  options.numberColor = options.numberColor || 'blue';
-  options.defaultIndentation = options.defaultIndentation || 2;
-  options.noColor = !!options.noColor;
-  options.noAlign = !!options.noAlign;
-
-  options.stringColor = options.stringColor || null;
-
-  return renderToArray(data, options, indentation).join('\n');
-}
-```
-- example usage
-```shell
-...
-  projects: ['prettyprint', 'connfu']
-};
-
-var options = {
-  noColor: true
-};
-
-console.log(prettyjson.render(data, options));
-'''
-
-And will output:
-
-![Example 4](https://raw.github.com/rafeca/prettyjson/master/images/example1.png)
-
-You can also configure the colors of the hash keys and array dashes
-...
-```
-
-#### <a name="apidoc.element.prettyjson.renderString"></a>[function <span class="apidocSignatureSpan">prettyjson.</span>renderString (data, options, indentation)](#apidoc.element.prettyjson.renderString)
-- description and source-code
-```javascript
-function renderString(data, options, indentation) {
-
-  var output = '';
-  var parsedData;
-  // If the input is not a string or if it's empty, just return an empty string
-  if (typeof data !== 'string' || data === '') {
-    return '';
-  }
-
-  // Remove non-JSON characters from the beginning string
-  if (data[0] !== '{' && data[0] !== '[') {
-    var beginingOfJson;
-    if (data.indexOf('{') === -1) {
-      beginingOfJson = data.indexOf('[');
-    } else if (data.indexOf('[') === -1) {
-      beginingOfJson = data.indexOf('{');
-    } else if (data.indexOf('{') < data.indexOf('[')) {
-      beginingOfJson = data.indexOf('{');
-    } else {
-      beginingOfJson = data.indexOf('[');
-    }
-    output += data.substr(0, beginingOfJson) + '\n';
-    data = data.substr(beginingOfJson);
-  }
-
-  try {
-    parsedData = JSON.parse(data);
-  } catch (e) {
-    // Return an error in case of an invalid JSON
-    return colors.red('Error:') + ' Not valid JSON!';
-  }
-
-  // Call the real render() method
-  output += exports.render(parsedData, options, indentation);
-  return output;
-}
-```
-- example usage
-```shell
-n/a
 ```
 
 
